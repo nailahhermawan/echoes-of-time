@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://bxcwv1f4wyimg"]
+
+[ext_resource type="Texture2D" uid="uid://qvtkhp6mj4u2" path="res://aset/perpusprop/lantai.png" id="1_54icn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8lrs"]
+size = Vector2(1523.5, 51)
+
+[node name="Floor" type="StaticBody2D" unique_id=1445254204]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1056474238]
+position = Vector2(-5.4240227e-06, 0.49999195)
+scale = Vector2(0.47758085, 0.7903223)
+texture = ExtResource("1_54icn")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=2503460]
+position = Vector2(354, 0.7499993)
+scale = Vector2(0.47758085, 0.79838705)
+texture = ExtResource("1_54icn")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=1293817308]
+position = Vector2(682, 0.7499994)
+scale = Vector2(0.47758085, 0.79838705)
+texture = ExtResource("1_54icn")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=101904908]
+position = Vector2(1065, 2)
+scale = Vector2(0.47758085, 0.79838705)
+texture = ExtResource("1_54icn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1906431042]
+position = Vector2(533.25, 1.5)
+shape = SubResource("RectangleShape2D_d8lrs")
