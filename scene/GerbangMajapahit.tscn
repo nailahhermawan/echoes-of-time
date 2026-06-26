@@ -1,0 +1,237 @@
+[gd_scene format=3 uid="uid://h6lopqtc5xuc"]
+
+[ext_resource type="Script" uid="uid://chv6bp81l8aea" path="res://scene/gerbang_majapahit.gd" id="1_8cfc5"]
+[ext_resource type="PackedScene" uid="uid://bxnie2754xloq" path="res://scene/player.tscn" id="1_m7yh5"]
+[ext_resource type="Texture2D" uid="uid://b8p08oew425ki" path="res://aset/majapahit/candibos.png" id="2_xi0a1"]
+[ext_resource type="Texture2D" uid="uid://bmhlhg2wgdpoo" path="res://aset/ui/trigger box/pintu kanan.png" id="3_ij1b8"]
+[ext_resource type="PackedScene" uid="uid://dlmp4h38tiopb" path="res://scene/DialogUI.tscn" id="4_o1th3"]
+[ext_resource type="Texture2D" uid="uid://bvg82d7xdfstq" path="res://aset/majapahit/semakmajapahit.png" id="5_73dk7"]
+[ext_resource type="Texture2D" uid="uid://fcsaghh2irf8" path="res://aset/majapahit/jalanmjphtnew.png" id="5_84d1q"]
+[ext_resource type="Texture2D" uid="uid://dkba3bstxvciv" path="res://aset/character/npc abang abang.png" id="6_m7yh5"]
+[ext_resource type="Texture2D" uid="uid://cgbgqj131svjk" path="res://aset/character/npc teteh.png" id="7_bkao5"]
+[ext_resource type="PackedScene" uid="uid://b2ok4t2pssr78" path="res://scene/MajapahitFloor.tscn" id="7_m7yh5"]
+[ext_resource type="Texture2D" uid="uid://dmuiwh2ftloba" path="res://aset/majapahit/bghutannew.png" id="8_ppgv6"]
+[ext_resource type="Texture2D" uid="uid://d0cct5pfh8jv4" path="res://aset/majapahit/bghutan2.png" id="9_ppgv6"]
+[ext_resource type="Texture2D" uid="uid://d0vkte07m0t5u" path="res://aset/majapahit/bghutan3.png" id="10_o1th3"]
+[ext_resource type="Texture2D" uid="uid://fg42dpfdtaq6" path="res://aset/ui/exclamation.png" id="12_ij1b8"]
+[ext_resource type="PackedScene" uid="uid://cqj4umas34km2" path="res://scene/sekar.tscn" id="13_ij1b8"]
+[ext_resource type="Script" uid="uid://cuw28wl7qktg3" path="res://scene/candi_trigger.gd" id="16_hmvn7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y85cf"]
+size = Vector2(85, 127)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mr42c"]
+size = Vector2(12, 323)
+
+[sub_resource type="GDScript" id="GDScript_8cfc5"]
+script/source = "extends Sprite2D
+
+var player_nearby: bool = false
+var time: float = 0.0
+var base_y: float = 0.0
+
+func _ready():
+	base_y = position.y
+	$Area2D.body_entered.connect(_on_body_entered)
+	$Area2D.body_exited.connect(_on_body_exited)
+
+func _process(delta):
+	time += delta
+	position.y = base_y + sin(time * 4.0) * 4.0
+	if player_nearby and Input.is_action_just_pressed(\"interact\"):
+		var sekar = get_parent().get_node(\"Sekar\")
+		sekar.visible = true
+		sekar.start_walking(1800.0)  # ganti 500.0 dengan posisi X pintu gubuk
+		queue_free()
+
+func _on_body_entered(body):
+	if body.name == \"Player\":
+		player_nearby = true
+
+func _on_body_exited(body):
+	if body.name == \"Player\":
+		player_nearby = false
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3w6ri"]
+size = Vector2(82, 53)
+
+[sub_resource type="GDScript" id="GDScript_3w6ri"]
+resource_name = "gubuktrigger"
+script/source = "extends Area2D
+
+var player_near = false
+
+@onready var prompt = $\"../Player/InteractPrompt\"
+
+func _ready():
+	prompt.visible = false
+	body_entered.connect(_on_body_entered)
+	body_exited.connect(_on_body_exited)
+
+func _process(delta):
+	if player_near and Input.is_action_just_pressed(\"interact\"):
+		get_tree().change_scene_to_file(\"res://scene/Gubuk.tscn\")
+
+func _on_body_entered(body):
+	if body.name == \"Player\":
+		player_near = true
+		prompt.visible = true
+
+func _on_body_exited(body):
+	if body.name == \"Player\":
+		player_near = false
+		prompt.visible = false
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ij1b8"]
+size = Vector2(139, 122)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_62bdl"]
+size = Vector2(95, 81)
+
+[node name="gim" type="Node2D" unique_id=1084622511]
+script = ExtResource("1_8cfc5")
+
+[node name="BackGroundCandiBos" type="Sprite2D" parent="." unique_id=1649820890]
+position = Vector2(-574, -10.000001)
+scale = Vector2(1.7984375, 1.6861111)
+texture = ExtResource("2_xi0a1")
+
+[node name="MajapahitFloor" parent="." unique_id=436255877 instance=ExtResource("7_m7yh5")]
+position = Vector2(77, 124)
+
+[node name="Player" parent="." unique_id=577976800 instance=ExtResource("1_m7yh5")]
+z_index = 1
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Player" unique_id=57361659]
+position = Vector2(-3.5, 24.5)
+shape = SubResource("RectangleShape2D_y85cf")
+disabled = true
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=957206003]
+zoom = Vector2(2, 2)
+limit_left = -288
+limit_right = 1919
+position_smoothing_enabled = true
+
+[node name="InteractPrompt" type="Sprite2D" parent="Player" unique_id=1260430083]
+position = Vector2(0, 5)
+texture = ExtResource("3_ij1b8")
+
+[node name="InteractPromptCandi" type="Sprite2D" parent="Player" unique_id=580226535]
+position = Vector2(0, 5)
+texture = ExtResource("3_ij1b8")
+
+[node name="DialogUi" parent="Player" unique_id=452596456 instance=ExtResource("4_o1th3")]
+offset_left = -150.0
+offset_top = -50.0
+offset_right = -150.0
+offset_bottom = -50.0
+
+[node name="Semak" type="Sprite2D" parent="." unique_id=1301240958]
+z_index = 2
+position = Vector2(-6.794929e-06, 1.0000019)
+scale = Vector2(1.8000001, 1.8000002)
+texture = ExtResource("5_73dk7")
+
+[node name="Semak6" type="Sprite2D" parent="." unique_id=361284632]
+z_index = 2
+position = Vector2(-531.99994, 1)
+scale = Vector2(1.8000001, 1.8000002)
+texture = ExtResource("5_73dk7")
+
+[node name="Semak2" type="Sprite2D" parent="." unique_id=374923325]
+z_index = 2
+position = Vector2(527.99994, 1)
+scale = Vector2(1.8000001, 1.8000002)
+texture = ExtResource("5_73dk7")
+
+[node name="Semak3" type="Sprite2D" parent="." unique_id=1949046342]
+z_index = 2
+position = Vector2(1057, 1)
+scale = Vector2(1.8000001, 1.8000002)
+texture = ExtResource("5_73dk7")
+
+[node name="Semak4" type="Sprite2D" parent="." unique_id=1327727583]
+z_index = 2
+position = Vector2(1584.9999, 1)
+scale = Vector2(1.8000001, 1.8000002)
+texture = ExtResource("5_73dk7")
+
+[node name="Semak5" type="Sprite2D" parent="." unique_id=1147656724]
+z_index = 2
+position = Vector2(2105, 1)
+scale = Vector2(1.8000001, 1.8000002)
+texture = ExtResource("5_73dk7")
+
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=1948971916]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=488640764]
+position = Vector2(-868, -4)
+shape = SubResource("RectangleShape2D_mr42c")
+
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=944669082]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=1327882191]
+position = Vector2(1926, 0)
+shape = SubResource("RectangleShape2D_mr42c")
+
+[node name="BackGroundGerbang" type="Sprite2D" parent="." unique_id=1823531846]
+position = Vector2(0, -11.249982)
+scale = Vector2(1.7984375, 1.6861111)
+texture = ExtResource("5_84d1q")
+
+[node name="npc" type="Sprite2D" parent="." unique_id=881683726]
+position = Vector2(-231, 72)
+texture = ExtResource("6_m7yh5")
+
+[node name="npc2" type="Sprite2D" parent="." unique_id=1251187151]
+position = Vector2(105, 70)
+texture = ExtResource("7_bkao5")
+
+[node name="BgHutan1" type="Sprite2D" parent="." unique_id=1910323508]
+position = Vector2(559.5556, -9.999997)
+scale = Vector2(1.7, 1.7000002)
+texture = ExtResource("8_ppgv6")
+
+[node name="BgHutan2" type="Sprite2D" parent="." unique_id=261693980]
+position = Vector2(1103.9999, -9.999997)
+scale = Vector2(1.7, 1.7000002)
+texture = ExtResource("9_ppgv6")
+
+[node name="BgHutan3" type="Sprite2D" parent="." unique_id=305417177]
+position = Vector2(1646.9999, -9.999996)
+scale = Vector2(1.7, 1.7000002)
+texture = ExtResource("10_o1th3")
+
+[node name="Interact Exclamation" type="Sprite2D" parent="." unique_id=1886933809]
+position = Vector2(1364, 74)
+texture = ExtResource("12_ij1b8")
+script = SubResource("GDScript_8cfc5")
+
+[node name="Area2D" type="Area2D" parent="Interact Exclamation" unique_id=498104753]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interact Exclamation/Area2D" unique_id=1274093991]
+position = Vector2(6, 29)
+shape = SubResource("RectangleShape2D_3w6ri")
+
+[node name="Sekar" parent="." unique_id=345149934 instance=ExtResource("13_ij1b8")]
+visible = false
+position = Vector2(1409, 77)
+
+[node name="GubukTrigger" type="Area2D" parent="." unique_id=1131391885]
+script = SubResource("GDScript_3w6ri")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GubukTrigger" unique_id=980951331]
+position = Vector2(1835.5, 35)
+shape = SubResource("RectangleShape2D_ij1b8")
+
+[node name="CandiTrigger" type="Area2D" parent="." unique_id=825432234]
+script = ExtResource("16_hmvn7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CandiTrigger" unique_id=775783898]
+position = Vector2(-575, 26)
+shape = SubResource("RectangleShape2D_62bdl")
+
+[connection signal="body_entered" from="GubukTrigger" to="." method="_on_gubuk_trigger_body_entered"]

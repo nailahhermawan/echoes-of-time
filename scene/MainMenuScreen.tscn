@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://dy1n48oqr61or"]
+
+[ext_resource type="Script" uid="uid://jrngqipuop5k" path="res://scene/main_menu_screen.gd" id="1_1p3ln"]
+[ext_resource type="Texture2D" uid="uid://dajflibq2x026" path="res://aset/mainscreen.png" id="1_iyfwa"]
+
+[node name="MainMenuScreen" type="Control" unique_id=2073798905]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_1p3ln")
+
+[node name="BackgroundMenu" type="TextureRect" parent="." unique_id=936770811]
+layout_mode = 0
+offset_left = -288.0
+offset_top = -162.0
+offset_right = 288.0
+offset_bottom = 162.0
+texture = ExtResource("1_iyfwa")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=970510733]
+zoom = Vector2(2, 2)
+limit_left = -288
+limit_right = 805
+position_smoothing_enabled = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=464845396]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = 90.0
+offset_top = 51.0
+offset_right = 250.0
+offset_bottom = 152.0
+grow_horizontal = 0
+
+[node name="StartButton" type="Button" parent="VBoxContainer" unique_id=299962958]
+layout_mode = 2
+text = "START"
+
+[node name="CreditButton" type="Button" parent="VBoxContainer" unique_id=1012392970]
+layout_mode = 2
+text = "CREDIT"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=856882842]
+layout_mode = 2
+text = "QUIT"
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/CreditButton" to="." method="_on_credit_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

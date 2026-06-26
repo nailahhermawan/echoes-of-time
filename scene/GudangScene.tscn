@@ -1,0 +1,173 @@
+[gd_scene format=3 uid="uid://ch3b1wqpclweh"]
+
+[ext_resource type="PackedScene" uid="uid://bxnie2754xloq" path="res://scene/player.tscn" id="1_hey0q"]
+[ext_resource type="Texture2D" uid="uid://m0rdcugpkuqo" path="res://aset/ui/trigger box/kain.png" id="2_4ik3c"]
+[ext_resource type="Texture2D" uid="uid://b685qwpsr5tjx" path="res://aset/perpusprop/gudangrev.png" id="2_f5eqr"]
+[ext_resource type="PackedScene" uid="uid://bxcwv1f4wyimg" path="res://scene/floor.tscn" id="2_gh6uj"]
+[ext_resource type="PackedScene" uid="uid://dlmp4h38tiopb" path="res://scene/DialogUI.tscn" id="3_qor2r"]
+[ext_resource type="Texture2D" uid="uid://3c83rnwjxiwl" path="res://aset/perpusprop/pintugudang.png" id="3_sss8n"]
+[ext_resource type="Texture2D" uid="uid://2be286vxixs1" path="res://aset/perpusprop/meja.png" id="5_f5eqr"]
+[ext_resource type="Script" uid="uid://b6rdg2m675jvd" path="res://scene/kain_trigger.gd" id="7_qor2r"]
+[ext_resource type="PackedScene" uid="uid://bbamny0e42efx" path="res://scene/ObjectiveUI.tscn" id="9_7gm6a"]
+
+[sub_resource type="GDScript" id="GDScript_qor2r"]
+resource_name = "gudang_scene.gd"
+script/source = "extends Node2D
+const GudangIntro = preload(\"res://scripts/dialogue/kain_dialog.gd\")
+
+@onready var player = $Player
+@onready var dialog = $Player/DialogUi
+@onready var objective_ui = $CanvasLayer/ObjectiveUi
+
+func _ready():
+	player.lock()
+	dialog.dialogue_finished.connect(_dialog_finished)
+	dialog.start(GudangIntro.DIALOG)
+
+func _dialog_finished():
+	player.unlock()
+	objective_ui.set_objective(\"Ambil kain di atas meja.\")
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y85cf"]
+size = Vector2(85, 127)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mr42c"]
+size = Vector2(12, 323)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7gm6a"]
+size = Vector2(33, 70)
+
+[sub_resource type="GDScript" id="GDScript_7gm6a"]
+resource_name = "objui"
+script/source = "extends Control
+
+@onready var label = $PanelContainer/MarginContainer/Label
+
+func _ready():
+	visible = false  # sembunyiin dulu saat game start
+
+func set_objective(text: String):
+	label.text = text
+	visible = true
+"
+
+[sub_resource type="Animation" id="Animation_jl1rk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/FadeRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_er5pi"]
+resource_name = "fade_out"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/FadeRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 0.003921569)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7gm6a"]
+_data = {
+&"RESET": SubResource("Animation_jl1rk"),
+&"fade_out": SubResource("Animation_er5pi")
+}
+
+[node name="gim" type="Node2D" unique_id=1084622511]
+script = SubResource("GDScript_qor2r")
+
+[node name="Player" parent="." unique_id=577976800 instance=ExtResource("1_hey0q")]
+z_index = 1
+position = Vector2(-250, 0)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Player" unique_id=57361659]
+position = Vector2(-3.5, 24.5)
+shape = SubResource("RectangleShape2D_y85cf")
+disabled = true
+
+[node name="Camera2D" type="Camera2D" parent="Player" unique_id=957206003]
+zoom = Vector2(2, 2)
+limit_left = -288
+limit_right = 288
+position_smoothing_enabled = true
+
+[node name="InteractPrompt" type="Sprite2D" parent="Player" unique_id=1260430083]
+visible = false
+position = Vector2(0, 5)
+texture = ExtResource("2_4ik3c")
+
+[node name="DialogUi" parent="Player" unique_id=452596456 instance=ExtResource("3_qor2r")]
+offset_left = -50.0
+offset_top = -50.0
+offset_right = -50.0
+offset_bottom = -50.0
+
+[node name="LeftWall" type="StaticBody2D" parent="." unique_id=1948971916]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall" unique_id=488640764]
+position = Vector2(-293, 0)
+shape = SubResource("RectangleShape2D_mr42c")
+
+[node name="LeftWall2" type="StaticBody2D" parent="." unique_id=232356365]
+
+[node name="wall" type="CollisionShape2D" parent="LeftWall2" unique_id=189425891]
+position = Vector2(294, 0)
+shape = SubResource("RectangleShape2D_mr42c")
+
+[node name="BackGroundGudang" type="Sprite2D" parent="." unique_id=1823531846]
+position = Vector2(0.5000099, -16.000011)
+scale = Vector2(1.7968751, 1.6222222)
+texture = ExtResource("2_f5eqr")
+
+[node name="Floor" parent="." unique_id=1445254204 instance=ExtResource("2_gh6uj")]
+position = Vector2(-14.000001, 124)
+scale = Vector2(1.5, 1.5)
+
+[node name="PintuGudang" type="Sprite2D" parent="." unique_id=1016994593]
+position = Vector2(-127, 27)
+texture = ExtResource("3_sss8n")
+
+[node name="meja" type="Sprite2D" parent="." unique_id=1729370699]
+position = Vector2(-11.000001, 48)
+scale = Vector2(0.90833324, 0.9083333)
+texture = ExtResource("5_f5eqr")
+
+[node name="KainTrigger" type="Area2D" parent="." unique_id=33858141]
+script = ExtResource("7_qor2r")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KainTrigger" unique_id=1287363266]
+position = Vector2(-21.5, 82)
+shape = SubResource("RectangleShape2D_7gm6a")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=6183414]
+
+[node name="FadeRect" type="ColorRect" parent="CanvasLayer" unique_id=1843750369]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0)
+metadata/_edit_use_anchors_ = true
+
+[node name="ObjectiveUi" parent="CanvasLayer" unique_id=1965439345 instance=ExtResource("9_7gm6a")]
+script = SubResource("GDScript_7gm6a")
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1319328168]
+libraries/ = SubResource("AnimationLibrary_7gm6a")

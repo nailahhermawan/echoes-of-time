@@ -1,0 +1,41 @@
+[gd_scene format=3 uid="uid://b2ok4t2pssr78"]
+
+[ext_resource type="Texture2D" uid="uid://c58c65dcg1aa4" path="res://aset/majapahit/jalanmjpht.png" id="1_auqvm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tg15l"]
+size = Vector2(4379, 76.5)
+
+[node name="MajapahitFloor" type="StaticBody2D" unique_id=436255877]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1878982829]
+scale = Vector2(2.2794116, 2.2794118)
+texture = ExtResource("1_auqvm")
+
+[node name="Sprite2D5" type="Sprite2D" parent="." unique_id=2109019655]
+position = Vector2(-729, 1.7881393e-07)
+scale = Vector2(2.2794116, 2.2794118)
+texture = ExtResource("1_auqvm")
+
+[node name="Sprite2D6" type="Sprite2D" parent="." unique_id=308977542]
+position = Vector2(-1458, 0)
+scale = Vector2(2.2794116, 2.2794118)
+texture = ExtResource("1_auqvm")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1706883794]
+position = Vector2(728.99994, -4.7683716e-07)
+scale = Vector2(2.2794116, 2.2794118)
+texture = ExtResource("1_auqvm")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=1997608867]
+position = Vector2(1457.9999, 3.5527137e-15)
+scale = Vector2(2.2794116, 2.2794118)
+texture = ExtResource("1_auqvm")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=661439974]
+position = Vector2(2187, 3.5527137e-15)
+scale = Vector2(2.2794116, 2.2794118)
+texture = ExtResource("1_auqvm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1376736057]
+position = Vector2(362.5, -0.25)
+shape = SubResource("RectangleShape2D_tg15l")

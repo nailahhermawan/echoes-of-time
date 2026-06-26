@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://bjoidy8cm1rji"]
+
+[ext_resource type="Texture2D" uid="uid://b0ojp0dbcbym6" path="res://aset/majapahit/lantai dalem candi.png" id="1_stcwd"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8lrs"]
+size = Vector2(2575, 76)
+
+[node name="Floor" type="StaticBody2D" unique_id=1445254204]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1056474238]
+position = Vector2(-118.24409, 1.7881393e-06)
+scale = Vector2(0.6206181, 1.027027)
+texture = ExtResource("1_stcwd")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=692437991]
+position = Vector2(80.00001, 4.7683716e-07)
+scale = Vector2(0.6206181, 1.027027)
+texture = ExtResource("1_stcwd")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=1694069448]
+position = Vector2(278, 4.7683716e-07)
+scale = Vector2(0.6206181, 1.027027)
+texture = ExtResource("1_stcwd")
+
+[node name="Sprite2D4" type="Sprite2D" parent="." unique_id=989798053]
+position = Vector2(476, 5.684342e-14)
+scale = Vector2(0.6206181, 1.027027)
+texture = ExtResource("1_stcwd")
+
+[node name="Sprite2D5" type="Sprite2D" parent="." unique_id=160288536]
+position = Vector2(674.00006, -2.3841858e-07)
+scale = Vector2(0.6206181, 1.027027)
+texture = ExtResource("1_stcwd")
+
+[node name="Sprite2D6" type="Sprite2D" parent="." unique_id=1410485840]
+position = Vector2(872.00006, 2.842171e-14)
+scale = Vector2(0.6206181, 1.027027)
+texture = ExtResource("1_stcwd")
+
+[node name="Sprite2D7" type="Sprite2D" parent="." unique_id=541628767]
+position = Vector2(1070, -5.9604645e-08)
+scale = Vector2(0.6206181, 1.027027)
+texture = ExtResource("1_stcwd")
+
+[node name="Sprite2D8" type="Sprite2D" parent="." unique_id=450220055]
+position = Vector2(1268, 1.9073486e-06)
+scale = Vector2(0.6206181, 1.027027)
+texture = ExtResource("1_stcwd")
+
+[node name="Sprite2D9" type="Sprite2D" parent="." unique_id=1743726081]
+position = Vector2(1466.0001, -7.1054274e-15)
+scale = Vector2(0.6206181, 1.027027)
+texture = ExtResource("1_stcwd")
+
+[node name="Sprite2D10" type="Sprite2D" parent="." unique_id=826755329]
+position = Vector2(1664, -1.5046328e-36)
+scale = Vector2(0.6206181, 1.027027)
+texture = ExtResource("1_stcwd")
+
+[node name="Sprite2D11" type="Sprite2D" parent="." unique_id=1262663266]
+position = Vector2(1862.0001, 2.842171e-14)
+scale = Vector2(0.6206181, 1.027027)
+texture = ExtResource("1_stcwd")
+
+[node name="Sprite2D12" type="Sprite2D" parent="." unique_id=1765928885]
+position = Vector2(2060.0002, 4.7683716e-07)
+scale = Vector2(0.6206181, 1.027027)
+texture = ExtResource("1_stcwd")
+
+[node name="Sprite2D13" type="Sprite2D" parent="." unique_id=341968202]
+position = Vector2(2258, 1.6940659e-21)
+scale = Vector2(0.6206181, 1.027027)
+texture = ExtResource("1_stcwd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1906431042]
+position = Vector2(1069.5, 0)
+shape = SubResource("RectangleShape2D_d8lrs")

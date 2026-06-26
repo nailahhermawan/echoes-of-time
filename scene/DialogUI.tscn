@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://dlmp4h38tiopb"]
+
+[ext_resource type="Script" uid="uid://o6u03ilpuh1u" path="res://scene/dialog_ui.gd" id="1_fh2sy"]
+[ext_resource type="Texture2D" uid="uid://cnm07hsn5y0r2" path="res://aset/ui/Dialog Box1.png" id="1_j8l6c"]
+
+[node name="DialogUi" type="Control" unique_id=452596456]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_fh2sy")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="." unique_id=306213978]
+layout_mode = 0
+offset_right = 306.0
+offset_bottom = 77.0
+texture = ExtResource("1_j8l6c")
+region_rect = Rect2(0, 0, 350, 100)
+patch_margin_left = 19
+patch_margin_top = 8
+patch_margin_right = 19
+patch_margin_bottom = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="NinePatchRect" unique_id=841513744]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.078
+anchor_top = 0.16900001
+anchor_right = 0.078
+anchor_bottom = 0.16900001
+offset_left = -4.868
+offset_top = -1.0130014
+offset_right = 262.589
+offset_bottom = 47.987
+theme_override_constants/margin_left = 19
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 19
+theme_override_constants/margin_bottom = 8
+
+[node name="DialogueLabel" type="RichTextLabel" parent="NinePatchRect/MarginContainer" unique_id=403858180]
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 12
+text = "hai nama aku xena
+"

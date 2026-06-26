@@ -1,9 +1,13 @@
 extends CharacterBody2D
 
 const SPEED = 200.0
-const GRAVITY = 900.0
+
+var can_move = true
 
 func _physics_process(delta):
+
+	if !can_move:
+		return
 
 	var direction = Input.get_axis(
 		"ui_left",
@@ -24,3 +28,9 @@ func _physics_process(delta):
 		$AnimatedSprite2D.play("XenaNgadepKanan_1")
 
 	move_and_slide()
+
+func lock():
+	can_move = false
+
+func unlock():
+	can_move = true

@@ -1,0 +1,131 @@
+[gd_scene format=3 uid="uid://cqj4umas34km2"]
+
+[ext_resource type="Texture2D" uid="uid://djxp6yuhs6sra" path="res://aset/character/Sekar majapahit.png" id="1_ler5m"]
+
+[sub_resource type="GDScript" id="GDScript_2sk34"]
+resource_name = "sekar"
+script/source = "extends CharacterBody2D
+
+const SPEED = 80.0
+var walking = false
+var target_x: float = 0.0  # posisi X tujuan (depan pintu gubuk)
+
+func _ready():
+	visible = false
+
+func start_walking(destination_x: float):
+	target_x = destination_x
+	walking = true
+
+func _physics_process(delta):
+	if not walking:
+		return
+	
+	var direction = sign(target_x - position.x)
+	
+	if abs(target_x - position.x) < 5.0:
+		walking = false
+		velocity.x = 0
+		# Sekar sampai pintu, langsung hilang
+		visible = false
+		# kasih tau scene bahwa Sekar udah masuk
+		get_parent().sekar_masuk_gubuk()
+	else:
+		velocity.x = direction * SPEED
+		$AnimatedSprite2D.play(\"jalan\")
+	
+	move_and_slide()
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lyrw1"]
+atlas = ExtResource("1_ler5m")
+region = Rect2(128, 0, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_30oyp"]
+atlas = ExtResource("1_ler5m")
+region = Rect2(128, 128, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugy5p"]
+atlas = ExtResource("1_ler5m")
+region = Rect2(128, 256, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4chwe"]
+atlas = ExtResource("1_ler5m")
+region = Rect2(128, 384, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrd6j"]
+atlas = ExtResource("1_ler5m")
+region = Rect2(128, 512, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13i48"]
+atlas = ExtResource("1_ler5m")
+region = Rect2(128, 640, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jq0t6"]
+atlas = ExtResource("1_ler5m")
+region = Rect2(128, 768, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nv0hs"]
+atlas = ExtResource("1_ler5m")
+region = Rect2(128, 896, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e3tqm"]
+atlas = ExtResource("1_ler5m")
+region = Rect2(128, 1024, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7wt6b"]
+atlas = ExtResource("1_ler5m")
+region = Rect2(128, 1152, 64, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vbpba"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lyrw1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_30oyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugy5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4chwe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrd6j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13i48")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jq0t6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nv0hs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e3tqm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7wt6b")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wcd1"]
+size = Vector2(39, 53)
+
+[node name="Sekar" type="CharacterBody2D" unique_id=345149934]
+script = SubResource("GDScript_2sk34")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1875366360]
+sprite_frames = SubResource("SpriteFrames_vbpba")
+frame = 5
+frame_progress = 0.30171958
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1450004349]
+position = Vector2(-4, -23.5)
+shape = SubResource("RectangleShape2D_0wcd1")

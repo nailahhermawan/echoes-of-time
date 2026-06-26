@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://cpkr12dajvbon"]
+
+[ext_resource type="Texture2D" uid="uid://c7p3gl00byf22" path="res://aset/majapahit/lantaigudangsekar.png" id="1_8acdk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d8lrs"]
+size = Vector2(1305, 76)
+
+[node name="Floor" type="StaticBody2D" unique_id=1445254204]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1056474238]
+scale = Vector2(1.3596437, 2.25)
+texture = ExtResource("1_8acdk")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1438259523]
+position = Vector2(434, 0)
+scale = Vector2(1.3596437, 2.25)
+texture = ExtResource("1_8acdk")
+
+[node name="Sprite2D3" type="Sprite2D" parent="." unique_id=865716564]
+position = Vector2(869.00006, 0)
+scale = Vector2(1.3596437, 2.25)
+texture = ExtResource("1_8acdk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1906431042]
+position = Vector2(434.5, 0)
+shape = SubResource("RectangleShape2D_d8lrs")

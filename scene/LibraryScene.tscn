@@ -1,11 +1,15 @@
 [gd_scene format=3 uid="uid://bf6f2x2wcsmln"]
 
 [ext_resource type="PackedScene" uid="uid://bxnie2754xloq" path="res://scene/player.tscn" id="1_b185d"]
+[ext_resource type="Script" uid="uid://btc55050bs277" path="res://scene/library_scene.gd" id="1_c85lx"]
 [ext_resource type="PackedScene" uid="uid://bxcwv1f4wyimg" path="res://scene/floor.tscn" id="2_mr42c"]
-[ext_resource type="Texture2D" uid="uid://dwrfcvwas7riu" path="res://aset/perpusprop/background.png" id="3_wn4ih"]
-[ext_resource type="Texture2D" uid="uid://ntp8dyicy1oi" path="res://aset/perpusprop/backgroundpintu.png" id="4_45dh3"]
-[ext_resource type="Texture2D" uid="uid://bc7erc2ohf2sv" path="res://aset/perpusprop/pintu.png" id="5_fdgrm"]
-[ext_resource type="Script" uid="uid://coy1ijr5j77o1" path="res://scripts/door.gd" id="5_y85cf"]
+[ext_resource type="Texture2D" uid="uid://bmhlhg2wgdpoo" path="res://aset/ui/trigger box/pintu kanan.png" id="2_n3vcw"]
+[ext_resource type="Texture2D" uid="uid://n686obv8h4kp" path="res://aset/perpusprop/background.png" id="3_wn4ih"]
+[ext_resource type="Texture2D" uid="uid://dxq54uaphawmd" path="res://aset/perpusprop/backgroundpintu.png" id="4_45dh3"]
+[ext_resource type="Script" uid="uid://frlc54hadkju" path="res://scene/door_trigger.gd" id="5_fdgrm"]
+[ext_resource type="Texture2D" uid="uid://bc7erc2ohf2sv" path="res://aset/perpusprop/pintu.png" id="6_y85cf"]
+[ext_resource type="PackedScene" uid="uid://bbamny0e42efx" path="res://scene/ObjectiveUI.tscn" id="8_ckmga"]
+[ext_resource type="PackedScene" uid="uid://dlmp4h38tiopb" path="res://scene/DialogUI.tscn" id="10_3wj4k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y85cf"]
 size = Vector2(85, 127)
@@ -14,9 +18,24 @@ size = Vector2(85, 127)
 size = Vector2(12, 323)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n3vcw"]
-size = Vector2(107, 165)
+size = Vector2(50, 324)
+
+[sub_resource type="GDScript" id="GDScript_c85lx"]
+resource_name = "objective_ui.gd"
+script/source = "extends Control
+
+@onready var label = $PanelContainer/MarginContainer/Label
+
+func _ready():
+	visible = false  # sembunyiin dulu saat game start
+
+func set_objective(text: String):
+	label.text = text
+	visible = true
+"
 
 [node name="gim" type="Node2D" unique_id=1084622511]
+script = ExtResource("1_c85lx")
 
 [node name="Player" parent="." unique_id=577976800 instance=ExtResource("1_b185d")]
 z_index = 1
@@ -30,7 +49,19 @@ disabled = true
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=957206003]
 zoom = Vector2(2, 2)
 limit_left = -288
+limit_right = 1355
 position_smoothing_enabled = true
+
+[node name="InteractPrompt" type="Sprite2D" parent="Player" unique_id=438791751]
+visible = false
+position = Vector2(0, 5)
+texture = ExtResource("2_n3vcw")
+
+[node name="DialogUi" parent="Player" unique_id=452596456 instance=ExtResource("10_3wj4k")]
+offset_left = -150.0
+offset_top = -50.0
+offset_right = -150.0
+offset_bottom = -50.0
 
 [node name="Floor" parent="." unique_id=1445254204 instance=ExtResource("2_mr42c")]
 position = Vector2(-14.000001, 124)
@@ -42,29 +73,34 @@ scale = Vector2(1.5, 1.5)
 position = Vector2(-294, 0)
 shape = SubResource("RectangleShape2D_mr42c")
 
+[node name="RightWall" type="StaticBody2D" parent="." unique_id=82230222]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall" unique_id=317441000]
+position = Vector2(1361, -8)
+shape = SubResource("RectangleShape2D_mr42c")
+
 [node name="BackgroundPerpus" type="Sprite2D" parent="." unique_id=2105414330]
-position = Vector2(277.75, 8.000008)
-scale = Vector2(1.3183935, 1.6815922)
+position = Vector2(278, 11.500003)
+scale = Vector2(1.3183935, 1.7263682)
 texture = ExtResource("3_wn4ih")
 
 [node name="BackgroundLorong" type="Sprite2D" parent="." unique_id=283240434]
-position = Vector2(1053, 11)
-scale = Vector2(0.95285213, 1.7064676)
+position = Vector2(1053, 10.25001)
+scale = Vector2(0.95285213, 1.7139301)
 texture = ExtResource("4_45dh3")
 
-[node name="Door" type="Node2D" parent="." unique_id=842055465]
-position = Vector2(1344, 38)
-script = ExtResource("5_y85cf")
+[node name="DoorTrigger" type="Area2D" parent="." unique_id=580836754]
+script = ExtResource("5_fdgrm")
 
-[node name="Sprite2D" type="Sprite2D" parent="Door" unique_id=642826945]
-position = Vector2(2, 2)
-texture = ExtResource("5_fdgrm")
-
-[node name="Area2D" type="Area2D" parent="Door" unique_id=740698937]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Door/Area2D" unique_id=1822072368]
-position = Vector2(0, 1)
-rotation = -0.004372954
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorTrigger" unique_id=1450353286]
+position = Vector2(1355, 0)
 shape = SubResource("RectangleShape2D_n3vcw")
 
-[connection signal="body_entered" from="Door/Area2D" to="Door" method="_on_area_2d_body_entered"]
+[node name="Pintu" type="Sprite2D" parent="." unique_id=358361958]
+position = Vector2(1347, 41)
+texture = ExtResource("6_y85cf")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1793801462]
+
+[node name="ObjectiveUi" parent="CanvasLayer" unique_id=1965439345 instance=ExtResource("8_ckmga")]
+script = SubResource("GDScript_c85lx")
